@@ -19,7 +19,7 @@
 						<P size="sm" style="text-align: end">{message.text}</P>
 					</div>
 					<div class="avatar" style="margin-left: 10px;">
-						<Avatar src={message.photoURL ?? ''} />
+						<Avatar src={message.photoUrl ?? ''} />
 					</div>
 				</div>
 			</Card>
@@ -31,7 +31,7 @@
 			>
 				<div class="flex-container">
 					<div class="avatar" style="margin-right: 10px;">
-						<Avatar src={message.photoURL ?? ''} />
+						<Avatar src={message.photoUrl ?? ''} />
 					</div>
 					<div class="message-container">
 						<P size="base"><strong>{message.name}</strong></P>
