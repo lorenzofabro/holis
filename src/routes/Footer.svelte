@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { Button, Footer, Input, DarkMode } from 'flowbite-svelte';
-
 	import { User } from 'sveltefire';
 	import { db as firestore } from '../lib/firebase';
 	import { addDoc, collection } from 'firebase/firestore';
+	import { PUBLIC_ROOM_NAME } from '$env/static/public';
 
-	const documentName = 'chats/room_1';
-	const chatCollection = collection(firestore, `${documentName}/messages`);
+	const chatCollection = collection(firestore, `${PUBLIC_ROOM_NAME}/messages`);
 
 	let msg = '';
 </script>
@@ -25,6 +24,12 @@
 					};
 					msg = '';
 					await addDoc(chatCollection, newMessage);
+					requestAnimationFrame(() =>
+						window.scrollTo({
+							top: document.body.scrollHeight,
+							behavior: 'smooth'
+						})
+					);
 				}}
 			>
 				<div class="flex ml-auto mr-auto" style="max-width: 57.625rem">

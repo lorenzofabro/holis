@@ -1,15 +1,26 @@
 <script lang="ts">
+	import Message from './Message.svelte';
 	import { FirebaseApp, Doc, Collection, User } from 'sveltefire';
 	import { auth, db as firestore } from '../lib/firebase';
-	import { query, collection, orderBy } from 'firebase/firestore';
-	import Message from './Message.svelte';
+	import { query, collection, orderBy, limit } from 'firebase/firestore';
 
-	const documentName = 'chats/room_1';
-	const chatCollection = collection(firestore, `${documentName}/messages`);
+	import { PUBLIC_ROOM_NAME } from '$env/static/public';
+	import { onMount } from 'svelte';
+
+	const chatCollection = collection(firestore, `${PUBLIC_ROOM_NAME}/messages`);
 
 	$: buildQuery = () => {
-		return query(chatCollection, orderBy('createdAt', 'desc'));
+		return query(chatCollection, orderBy('createdAt', 'desc'), limit(50));
 	};
+
+	onMount(() => {
+		setTimeout(() => {
+			window.scrollTo({
+				top: document.body.scrollHeight,
+				behavior: 'smooth'
+			});
+		}, 1500);
+	});
 </script>
 
 <svelte:head>
@@ -20,9 +31,9 @@
 <section>
 	<FirebaseApp {auth} {firestore}>
 		<User>
-			<Doc ref={documentName}>
+			<Doc ref={PUBLIC_ROOM_NAME}>
 				<Collection ref={buildQuery()} let:data={messages}>
-					{#each messages as message}
+					{#each [...messages].reverse() as message}
 						<Message {message} />
 					{/each}
 				</Collection>

@@ -14,7 +14,7 @@
 		<slot />
 	</main>
 
-	<footer class="pt-32">
+	<footer class="pt-20">
 		<Footer />
 	</footer>
 </div>
