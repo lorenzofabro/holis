@@ -16,7 +16,7 @@
 			<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">holis</span>
 		</NavBrand>
 		{#if $user}
-			<p>logged in as <strong>{$user.displayName}</strong></p>
+			<p>logged in as <strong>{$user.displayName?.split(' ')[0]}</strong></p>
 			<div class="flex md:order-2">
 				<Button on:click={() => auth.signOut()} size="sm">logout</Button>
 			</div>

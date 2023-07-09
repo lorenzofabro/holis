@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { FirebaseApp, Doc, Collection } from 'sveltefire';
+	import { FirebaseApp, Doc, Collection, User } from 'sveltefire';
 	import { auth, db as firestore } from '../lib/firebase';
 	import { query, collection, orderBy } from 'firebase/firestore';
 	import Message from './Message.svelte';
@@ -19,12 +19,14 @@
 
 <section>
 	<FirebaseApp {auth} {firestore}>
-		<Doc ref={documentName}>
-			<Collection ref={buildQuery()} let:data={messages}>
-				{#each messages as message}
-					<Message {message} />
-				{/each}
-			</Collection>
-		</Doc>
+		<User>
+			<Doc ref={documentName}>
+				<Collection ref={buildQuery()} let:data={messages}>
+					{#each messages as message}
+						<Message {message} />
+					{/each}
+				</Collection>
+			</Doc>
+		</User>
 	</FirebaseApp>
 </section>

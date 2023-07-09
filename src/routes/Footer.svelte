@@ -20,7 +20,8 @@
 						text: msg,
 						createdAt: Date.now(),
 						name: user.displayName,
-						userId: user.uid
+						userId: user.uid,
+						photoUrl: user.photoURL
 					};
 					msg = '';
 					await addDoc(chatCollection, newMessage);
