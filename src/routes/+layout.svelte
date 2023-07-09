@@ -6,7 +6,7 @@
 </script>
 
 <div class="app">
-	<header class="relative px-8 pb-20">
+	<header class="relative px-8 pb-10">
 		<Navbar />
 	</header>
 
