@@ -1,18 +1,21 @@
 <script>
+	import '../app.postcss';
 	import './styles.css';
+	import Navbar from './Navbar.svelte';
+	import Footer from './Footer.svelte';
 </script>
 
 <div class="app">
-	<header>
-		<h1>SvelteKit Demo</h1>
+	<header class="relative px-8 pb-20">
+		<Navbar />
 	</header>
 
 	<main>
 		<slot />
 	</main>
 
-	<footer>
-		<p>god</p>
+	<footer class="pt-32">
+		<Footer />
 	</footer>
 </div>
 
@@ -32,23 +35,5 @@
 		max-width: 64rem;
 		margin: 0 auto;
 		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
 	}
 </style>

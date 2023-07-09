@@ -1,6 +1,30 @@
+<script lang="ts">
+	import { FirebaseApp, Doc, Collection } from 'sveltefire';
+	import { auth, db as firestore } from '../lib/firebase';
+	import { query, collection, orderBy } from 'firebase/firestore';
+	import Message from './Message.svelte';
+
+	const documentName = 'chats/room_1';
+	const chatCollection = collection(firestore, `${documentName}/messages`);
+
+	$: buildQuery = () => {
+		return query(chatCollection, orderBy('createdAt', 'desc'));
+	};
+</script>
+
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>holis</title>
+	<meta name="description" content="holis" />
 </svelte:head>
 
-<section>hola</section>
+<section>
+	<FirebaseApp {auth} {firestore}>
+		<Doc ref={documentName}>
+			<Collection ref={buildQuery()} let:data={messages}>
+				{#each messages as message}
+					<Message {message} />
+				{/each}
+			</Collection>
+		</Doc>
+	</FirebaseApp>
+</section>

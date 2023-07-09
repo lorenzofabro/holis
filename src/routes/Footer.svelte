@@ -1,0 +1,37 @@
+<script lang="ts">
+	import { Button, Footer, Input, DarkMode } from 'flowbite-svelte';
+
+	import { User } from 'sveltefire';
+	import { db as firestore } from '../lib/firebase';
+	import { addDoc, collection } from 'firebase/firestore';
+
+	const documentName = 'chats/room_1';
+	const chatCollection = collection(firestore, `${documentName}/messages`);
+
+	let msg = '';
+</script>
+
+<div>
+	<Footer class="fixed bottom-0 left-0 z-20 w-full" style="display: block">
+		<User let:user>
+			<form
+				on:submit|preventDefault={async () => {
+					const newMessage = {
+						text: msg,
+						createdAt: Date.now(),
+						name: user.displayName,
+						userId: user.uid
+					};
+					msg = '';
+					await addDoc(chatCollection, newMessage);
+				}}
+			>
+				<div class="flex ml-auto mr-auto" style="max-width: 57.625rem">
+					<Input placeholder="message" bind:value={msg} required class="mr-3" />
+					<Button type="submit" class="mr-2">send</Button>
+					<DarkMode />
+				</div>
+			</form>
+		</User>
+	</Footer>
+</div>
