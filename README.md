@@ -2,4 +2,4 @@
 
 https://holis.loren.land
 
-messaging web-app that uses firebase
+messaging web-app that uses firebase 🔥
